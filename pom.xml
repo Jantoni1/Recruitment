@@ -30,6 +30,14 @@
             <version>2.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+
         <!-- test -->
 
         <dependency>
@@ -196,7 +204,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <failIfNoTests>true</failIfNoTests>
+                    <failIfNoTests>false</failIfNoTests>
                     <includes>
                         <include>**/*IntegrationTest*.*</include>
                     </includes>
