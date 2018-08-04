@@ -17,4 +17,24 @@
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
     </bean>
 
+    <bean id="transactionQueue"
+          class="com.oath.cyclops.async.adapters.Queue">
+    </bean>
+
+    <bean id="enrichedTransactionQueue"
+          class="com.oath.cyclops.async.adapters.Queue">
+    </bean>
+
+
+    <bean id="producer" class="com.awin.recruitment.library.ProducerImpl" scope="prototype">
+        <property name="inputTransactionQueue" ref="transactionQueue"/>
+        <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
+    </bean>
+
+    <bean id="consumer" class="com.awin.recruitment.library.ConsumerImpl" scope="prototype">
+        <property name="inputTransactionQueue" ref="transactionQueue"/>
+        <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
+    </bean>
+
+
 </beans>

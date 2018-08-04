@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
        profile="test">
 
     <!-- configuration -->
@@ -18,6 +20,60 @@
         <property name="order" value="1"/>
         <property name="searchSystemEnvironment" value="true"/>
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    </bean>
+
+    <bean id="transactionQueue"
+          class="com.oath.cyclops.async.adapters.Queue">
+    </bean>
+
+    <bean id="enrichedTransactionQueue"
+          class="com.oath.cyclops.async.adapters.Queue">
+    </bean>
+
+
+    <bean id="producer" class="com.awin.recruitment.library.ProducerImpl" scope="prototype">
+        <property name="inputTransactionQueue" ref="transactionQueue"/>
+        <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
+    </bean>
+
+    <bean id="consumer" class="com.awin.recruitment.library.ConsumerImpl" scope="prototype">
+        <property name="inputTransactionQueue" ref="transactionQueue"/>
+        <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
+    </bean>
+
+    <bean id="date" class="java.time.LocalDate">
+        <constructor-arg name="year" value="2018"/>
+        <constructor-arg name="month" value="8"/>
+        <constructor-arg name="dayOfMonth" value="3"/>
+    </bean>
+
+    <bean id="milk" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Milk"/>
+        <constructor-arg name="totalCost" value="10"/>
+    </bean>
+
+    <bean id="pineapple" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Pineapple"/>
+        <constructor-arg name="totalCost" value="21"/>
+    </bean>
+
+    <bean id="sampleTransaction" class="com.awin.recruitment.library.Transaction">
+        <constructor-arg name="idNumber" value="1"/>
+        <constructor-arg name="saleDate" ref="date"/>
+        <constructor-arg name="products">
+            <util:list id="someArrayId">
+                <ref bean="milk"/>
+                <ref bean="pineapple"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="transactionInputList" class="java.util.ArrayList">
+        <constructor-arg>
+            <util:list>
+                <ref bean="sampleTransaction"/>
+            </util:list>
+        </constructor-arg>
     </bean>
 
 </beans>
