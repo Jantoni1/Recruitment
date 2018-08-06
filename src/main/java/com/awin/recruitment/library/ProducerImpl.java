@@ -1,6 +1,7 @@
 package com.awin.recruitment.library;
 
 import com.oath.cyclops.async.adapters.Queue;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicLong;
@@ -8,24 +9,25 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ProducerImpl implements Producer<Transaction>, Runnable {
 
     public ProducerImpl() {
-        consumerId = consumerIdGenerator.getAndIncrement();
+        producerId = producerIdGenerator.getAndIncrement();
     }
 
-    private static AtomicLong consumerIdGenerator = new AtomicLong(0);
+    private static AtomicLong producerIdGenerator = new AtomicLong(0);
 
-    private final long consumerId;
+    private final long producerId;
     private Queue<Transaction> inputTransactionQueue;
     private Queue<EnrichedTransaction> enrichedTransactionQueue;
 
     ProducerImpl(Queue<Transaction> inputTransactionQueue, Queue<EnrichedTransaction> enrichedTransactionQueue) {
         this.enrichedTransactionQueue = enrichedTransactionQueue;
         this.inputTransactionQueue = inputTransactionQueue;
-        consumerId = consumerIdGenerator.getAndIncrement();
+        producerId = producerIdGenerator.getAndIncrement();
     }
 
     @Override
     public void run() {
         produce(inputTransactionQueue.stream());
+        Logger.getLogger("Producer's No." + producerId + " thread").info("Thread shuts down.");
     }
 
     @Override
@@ -39,6 +41,8 @@ public class ProducerImpl implements Producer<Transaction>, Runnable {
         for(Product product : transaction.getProducts()) {
             sum = sum.add(product.getTotalCost());
         }
+        Logger.getLogger("Producer's No." + producerId + " thread").info("Calculated sum: " + sum
+                + " for transaction No." + transaction.getIdNumber());
         return sum;
     }
 
@@ -56,5 +60,9 @@ public class ProducerImpl implements Producer<Transaction>, Runnable {
 
     public void setEnrichedTransactionQueue(Queue<EnrichedTransaction> enrichedTransactionQueue) {
         this.enrichedTransactionQueue = enrichedTransactionQueue;
+    }
+
+    public long getProducerId() {
+        return producerId;
     }
 }

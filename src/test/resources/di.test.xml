@@ -38,7 +38,6 @@
 
     <bean id="consumer" class="com.awin.recruitment.library.ConsumerImpl" scope="prototype">
         <property name="inputTransactionQueue" ref="transactionQueue"/>
-        <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
     </bean>
 
     <bean id="date" class="java.time.LocalDate">

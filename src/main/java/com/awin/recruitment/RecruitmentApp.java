@@ -2,14 +2,17 @@ package com.awin.recruitment;
 
 import com.awin.recruitment.infrastructure.spring.ClassPathXmlApplicationContextFactory;
 import com.awin.recruitment.library.ConsumerImpl;
-import com.awin.recruitment.library.ProducerImpl;
+import com.awin.recruitment.library.ProducerConsumerFactory;
+import com.awin.recruitment.library.ProducerExecuteRunner;
+import com.awin.recruitment.library.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.ArrayList;
 
 
 public final class RecruitmentApp {
 
     private RecruitmentApp() { }
-
 
     public static void main(
         String[] args
@@ -17,11 +20,13 @@ public final class RecruitmentApp {
 
         ClassPathXmlApplicationContext applicationContext = ClassPathXmlApplicationContextFactory.create();
 
-        ConsumerImpl consumer = (ConsumerImpl)applicationContext.getBean("consumer");
-        Thread consumerThread = new Thread(consumer);
-        consumerThread.start();
+        ProducerConsumerFactory factory = new ProducerConsumerFactory();
 
-        Thread producerThreads = new Thread((ProducerImpl)applicationContext.getBean("producer"));
-        producerThreads.start();
+        new Thread(new ProducerExecuteRunner(factory, 4)).start();
+
+        ConsumerImpl consumer = factory.getConsumer();
+
+        consumer.consume((ArrayList<Transaction>)applicationContext.getBean("transactionInputList"));
+
     }
 }

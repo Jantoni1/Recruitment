@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
        profile="development">
 
     <!-- configuration -->
@@ -17,24 +19,132 @@
         <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
     </bean>
 
-    <bean id="transactionQueue"
-          class="com.oath.cyclops.async.adapters.Queue">
+    <bean id="date" class="java.time.LocalDate" factory-method="now">
     </bean>
 
-    <bean id="enrichedTransactionQueue"
-          class="com.oath.cyclops.async.adapters.Queue">
+    <bean id="milk" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Milk"/>
+        <constructor-arg name="totalCost" value="10"/>
     </bean>
 
-
-    <bean id="producer" class="com.awin.recruitment.library.ProducerImpl" scope="prototype">
-        <property name="inputTransactionQueue" ref="transactionQueue"/>
-        <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
+    <bean id="pineapple" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Pineapple"/>
+        <constructor-arg name="totalCost" value="21"/>
     </bean>
 
-    <bean id="consumer" class="com.awin.recruitment.library.ConsumerImpl" scope="prototype">
-        <property name="inputTransactionQueue" ref="transactionQueue"/>
-        <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
+    <bean id="chocolate" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Chocolate"/>
+        <constructor-arg name="totalCost" value="2.20"/>
     </bean>
+
+    <bean id="tuna" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Tuna"/>
+        <constructor-arg name="totalCost" value="3.99"/>
+    </bean>
+
+    <bean id="coconut" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Coconut"/>
+        <constructor-arg name="totalCost" value="5.99"/>
+    </bean>
+
+    <bean id="iceCream" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Ice Cream"/>
+        <constructor-arg name="totalCost" value="8"/>
+    </bean>
+
+    <bean id="bread" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Bread"/>
+        <constructor-arg name="totalCost" value="3"/>
+    </bean>
+
+    <bean id="soda" class="com.awin.recruitment.library.Product">
+        <constructor-arg name="name" value="Soda"/>
+        <constructor-arg name="totalCost" value="4"/>
+    </bean>
+
+    <bean id="sampleTransaction" class="com.awin.recruitment.library.Transaction">
+        <constructor-arg name="idNumber" value="1"/>
+        <constructor-arg name="saleDate" ref="date"/>
+        <constructor-arg name="products">
+            <util:list id="someArrayId1">
+                <ref bean="milk"/>
+                <ref bean="pineapple"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sampleTransaction1" class="com.awin.recruitment.library.Transaction">
+        <constructor-arg name="idNumber" value="2"/>
+        <constructor-arg name="saleDate" ref="date"/>
+        <constructor-arg name="products">
+            <util:list id="someArrayId2">
+                <ref bean="coconut"/>
+                <ref bean="iceCream"/>
+                <ref bean="bread"/>
+                <ref bean="soda"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sampleTransaction2" class="com.awin.recruitment.library.Transaction">
+        <constructor-arg name="idNumber" value="3"/>
+        <constructor-arg name="saleDate" ref="date"/>
+        <constructor-arg name="products">
+            <util:list id="someArrayId3">
+                <ref bean="milk"/>
+                <ref bean="pineapple"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sampleTransaction3" class="com.awin.recruitment.library.Transaction">
+        <constructor-arg name="idNumber" value="4"/>
+        <constructor-arg name="saleDate" ref="date"/>
+        <constructor-arg name="products">
+            <util:list id="someArrayId4">
+                <ref bean="milk"/>
+                <ref bean="pineapple"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sampleTransaction4" class="com.awin.recruitment.library.Transaction">
+        <constructor-arg name="idNumber" value="5"/>
+        <constructor-arg name="saleDate" ref="date"/>
+        <constructor-arg name="products">
+            <util:list id="someArrayId5">
+                <ref bean="tuna"/>
+                <ref bean="chocolate"/>
+                <ref bean="milk"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="sampleTransaction5" class="com.awin.recruitment.library.Transaction">
+        <constructor-arg name="idNumber" value="6"/>
+        <constructor-arg name="saleDate" ref="date"/>
+        <constructor-arg name="products">
+            <util:list id="someArrayId6">
+                <ref bean="tuna"/>
+                <ref bean="pineapple"/>
+                <ref bean="iceCream"/>
+                <ref bean="bread"/>
+            </util:list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="transactionInputList" class="java.util.ArrayList">
+    <constructor-arg>
+        <util:list>
+            <ref bean="sampleTransaction1"/>
+            <ref bean="sampleTransaction2"/>
+            <ref bean="sampleTransaction3"/>
+            <ref bean="sampleTransaction4"/>
+            <ref bean="sampleTransaction5"/>
+        </util:list>
+    </constructor-arg>
+
+</bean>
 
 
 </beans>
