@@ -22,47 +22,47 @@
     <bean id="date" class="java.time.LocalDate" factory-method="now">
     </bean>
 
-    <bean id="milk" class="com.awin.recruitment.library.Product">
+    <bean id="milk" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Milk"/>
         <constructor-arg name="totalCost" value="10"/>
     </bean>
 
-    <bean id="pineapple" class="com.awin.recruitment.library.Product">
+    <bean id="pineapple" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Pineapple"/>
         <constructor-arg name="totalCost" value="21"/>
     </bean>
 
-    <bean id="chocolate" class="com.awin.recruitment.library.Product">
+    <bean id="chocolate" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Chocolate"/>
         <constructor-arg name="totalCost" value="2.20"/>
     </bean>
 
-    <bean id="tuna" class="com.awin.recruitment.library.Product">
+    <bean id="tuna" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Tuna"/>
         <constructor-arg name="totalCost" value="3.99"/>
     </bean>
 
-    <bean id="coconut" class="com.awin.recruitment.library.Product">
+    <bean id="coconut" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Coconut"/>
         <constructor-arg name="totalCost" value="5.99"/>
     </bean>
 
-    <bean id="iceCream" class="com.awin.recruitment.library.Product">
+    <bean id="iceCream" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Ice Cream"/>
         <constructor-arg name="totalCost" value="8"/>
     </bean>
 
-    <bean id="bread" class="com.awin.recruitment.library.Product">
+    <bean id="bread" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Bread"/>
         <constructor-arg name="totalCost" value="3"/>
     </bean>
 
-    <bean id="soda" class="com.awin.recruitment.library.Product">
+    <bean id="soda" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Soda"/>
         <constructor-arg name="totalCost" value="4"/>
     </bean>
 
-    <bean id="sampleTransaction" class="com.awin.recruitment.library.Transaction">
+    <bean id="sampleTransaction" class="com.awin.recruitment.library.messages.Transaction">
         <constructor-arg name="idNumber" value="1"/>
         <constructor-arg name="saleDate" ref="date"/>
         <constructor-arg name="products">
@@ -73,7 +73,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="sampleTransaction1" class="com.awin.recruitment.library.Transaction">
+    <bean id="sampleTransaction1" class="com.awin.recruitment.library.messages.Transaction">
         <constructor-arg name="idNumber" value="2"/>
         <constructor-arg name="saleDate" ref="date"/>
         <constructor-arg name="products">
@@ -86,7 +86,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="sampleTransaction2" class="com.awin.recruitment.library.Transaction">
+    <bean id="sampleTransaction2" class="com.awin.recruitment.library.messages.Transaction">
         <constructor-arg name="idNumber" value="3"/>
         <constructor-arg name="saleDate" ref="date"/>
         <constructor-arg name="products">
@@ -97,7 +97,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="sampleTransaction3" class="com.awin.recruitment.library.Transaction">
+    <bean id="sampleTransaction3" class="com.awin.recruitment.library.messages.Transaction">
         <constructor-arg name="idNumber" value="4"/>
         <constructor-arg name="saleDate" ref="date"/>
         <constructor-arg name="products">
@@ -108,7 +108,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="sampleTransaction4" class="com.awin.recruitment.library.Transaction">
+    <bean id="sampleTransaction4" class="com.awin.recruitment.library.messages.Transaction">
         <constructor-arg name="idNumber" value="5"/>
         <constructor-arg name="saleDate" ref="date"/>
         <constructor-arg name="products">
@@ -120,7 +120,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="sampleTransaction5" class="com.awin.recruitment.library.Transaction">
+    <bean id="sampleTransaction5" class="com.awin.recruitment.library.messages.Transaction">
         <constructor-arg name="idNumber" value="6"/>
         <constructor-arg name="saleDate" ref="date"/>
         <constructor-arg name="products">

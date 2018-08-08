@@ -31,13 +31,13 @@
     </bean>
 
 
-    <bean id="producer" class="com.awin.recruitment.library.ProducerImpl" scope="prototype">
+    <bean id="producer" class="com.awin.recruitment.library.producer.ProducerImpl" scope="prototype">
         <property name="inputTransactionQueue" ref="transactionQueue"/>
         <property name="enrichedTransactionQueue" ref="enrichedTransactionQueue"/>
     </bean>
 
-    <bean id="consumer" class="com.awin.recruitment.library.ConsumerImpl" scope="prototype">
-        <property name="inputTransactionQueue" ref="transactionQueue"/>
+    <bean id="consumer" class="com.awin.recruitment.library.consumer.ConsumerImpl" scope="prototype">
+        <property name="outputTransactionQueue" ref="transactionQueue"/>
     </bean>
 
     <bean id="date" class="java.time.LocalDate">
@@ -46,17 +46,17 @@
         <constructor-arg name="dayOfMonth" value="3"/>
     </bean>
 
-    <bean id="milk" class="com.awin.recruitment.library.Product">
+    <bean id="milk" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Milk"/>
         <constructor-arg name="totalCost" value="10"/>
     </bean>
 
-    <bean id="pineapple" class="com.awin.recruitment.library.Product">
+    <bean id="pineapple" class="com.awin.recruitment.library.messages.Product">
         <constructor-arg name="name" value="Pineapple"/>
         <constructor-arg name="totalCost" value="21"/>
     </bean>
 
-    <bean id="sampleTransaction" class="com.awin.recruitment.library.Transaction">
+    <bean id="sampleTransaction" class="com.awin.recruitment.library.messages.Transaction" scope="prototype">
         <constructor-arg name="idNumber" value="1"/>
         <constructor-arg name="saleDate" ref="date"/>
         <constructor-arg name="products">
@@ -67,7 +67,7 @@
         </constructor-arg>
     </bean>
 
-    <bean id="transactionInputList" class="java.util.ArrayList">
+    <bean id="transactionInputList" class="java.util.ArrayList" scope="prototype">
         <constructor-arg>
             <util:list>
                 <ref bean="sampleTransaction"/>

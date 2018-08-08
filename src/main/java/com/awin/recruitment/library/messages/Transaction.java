@@ -1,4 +1,4 @@
-package com.awin.recruitment.library;
+package com.awin.recruitment.library.messages;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

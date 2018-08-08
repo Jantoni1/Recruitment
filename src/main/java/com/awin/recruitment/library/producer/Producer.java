@@ -1,4 +1,4 @@
-package com.awin.recruitment.library;
+package com.awin.recruitment.library.producer;
 
 public interface Producer<T> {
 

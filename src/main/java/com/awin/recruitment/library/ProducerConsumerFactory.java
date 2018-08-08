@@ -1,5 +1,9 @@
 package com.awin.recruitment.library;
 
+import com.awin.recruitment.library.consumer.ConsumerImpl;
+import com.awin.recruitment.library.messages.EnrichedTransaction;
+import com.awin.recruitment.library.messages.Transaction;
+import com.awin.recruitment.library.producer.ProducerImpl;
 import com.oath.cyclops.async.adapters.Queue;
 
 public class ProducerConsumerFactory {

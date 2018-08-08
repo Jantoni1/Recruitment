@@ -1,10 +1,8 @@
 package com.awin.recruitment;
 
 import com.awin.recruitment.infrastructure.spring.ClassPathXmlApplicationContextFactory;
-import com.awin.recruitment.library.ConsumerImpl;
-import com.awin.recruitment.library.ProducerConsumerFactory;
-import com.awin.recruitment.library.ProducerExecuteRunner;
-import com.awin.recruitment.library.Transaction;
+import com.awin.recruitment.library.EnrichmentServiceRunner;
+import com.awin.recruitment.library.messages.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
@@ -20,13 +18,9 @@ public final class RecruitmentApp {
 
         ClassPathXmlApplicationContext applicationContext = ClassPathXmlApplicationContextFactory.create();
 
-        ProducerConsumerFactory factory = new ProducerConsumerFactory();
-
-        new Thread(new ProducerExecuteRunner(factory, 4)).start();
-
-        ConsumerImpl consumer = factory.getConsumer();
-
-        consumer.consume((ArrayList<Transaction>)applicationContext.getBean("transactionInputList"));
-
+        EnrichmentServiceRunner runner = new EnrichmentServiceRunner(3);
+        runner.start();
+        runner.consume((ArrayList<Transaction>)applicationContext.getBean("transactionInputList"));
+        runner.shutdown();
     }
 }
