@@ -4,6 +4,7 @@ import com.awin.recruitment.library.consumer.ConsumerExecuteRunner;
 import com.awin.recruitment.library.messages.EnrichedTransaction;
 import com.awin.recruitment.library.messages.Transaction;
 import com.awin.recruitment.library.producer.ProducerExecuteRunner;
+import com.oath.cyclops.async.adapters.Queue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -22,6 +23,14 @@ public class EnrichmentServiceRunner {
 
     public EnrichmentServiceRunner(int numberOfProducers) {
         producerConsumerFactory = new ProducerConsumerFactory();
+        producerExecuteRunner = new ProducerExecuteRunner(producerConsumerFactory, numberOfProducers);
+        consumerExecuteRunner = new ConsumerExecuteRunner(producerConsumerFactory);
+        isRunning = new AtomicBoolean(false);
+        isClosed = new AtomicBoolean(false);
+    }
+
+    public EnrichmentServiceRunner(int numberOfProducers, Queue<EnrichedTransaction> outputQueue) {
+        producerConsumerFactory = new ProducerConsumerFactory(outputQueue);
         producerExecuteRunner = new ProducerExecuteRunner(producerConsumerFactory, numberOfProducers);
         consumerExecuteRunner = new ConsumerExecuteRunner(producerConsumerFactory);
         isRunning = new AtomicBoolean(false);

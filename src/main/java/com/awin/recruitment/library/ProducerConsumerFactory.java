@@ -17,6 +17,10 @@ public class ProducerConsumerFactory {
         producerOutputQueue = new Queue<>();
     }
 
+    public ProducerConsumerFactory(Queue<EnrichedTransaction> producerOutputQueue) {
+        producerInputQueue = new Queue<>();
+        this.producerOutputQueue = producerOutputQueue;
+    }
 
     public ProducerImpl getProducer() {
         return new ProducerImpl(producerInputQueue, producerOutputQueue);
