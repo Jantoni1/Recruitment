@@ -1,4 +1,4 @@
-package com.awin.recruitment.library;
+package com.awin.recruitment.library.consumer;
 
 public interface Consumer<T> {
 

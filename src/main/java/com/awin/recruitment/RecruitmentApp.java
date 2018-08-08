@@ -1,7 +1,12 @@
 package com.awin.recruitment;
 
 import com.awin.recruitment.infrastructure.spring.ClassPathXmlApplicationContextFactory;
+import com.awin.recruitment.library.EnrichmentServiceRunner;
+import com.awin.recruitment.library.messages.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.ArrayList;
+
 
 public final class RecruitmentApp {
 
@@ -9,10 +14,13 @@ public final class RecruitmentApp {
 
     public static void main(
         String[] args
-    ) {
+    )  {
 
         ClassPathXmlApplicationContext applicationContext = ClassPathXmlApplicationContextFactory.create();
 
-        System.out.println("Recruitment app is running");
+        EnrichmentServiceRunner runner = new EnrichmentServiceRunner(3);
+        runner.start();
+        runner.consume((ArrayList<Transaction>)applicationContext.getBean("transactionInputList"));
+        runner.shutdown();
     }
 }
