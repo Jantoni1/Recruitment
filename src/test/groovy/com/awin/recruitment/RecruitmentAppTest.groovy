@@ -233,9 +233,6 @@ class RecruitmentAppTest extends Specification {
         ArrayList<Transaction> messageInput =
                 (ArrayList<Transaction>)applicationContext.getBean("transactionInputList")
 
-        println messageInput
-        println factory.getProducerInputQueue().isOpen()
-
         when: "ConsumerExecuteRunner's consume() method is called"
 
         runner.consume(messageInput)
